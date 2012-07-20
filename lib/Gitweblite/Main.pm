@@ -433,7 +433,10 @@ sub projects {
     my $head_commit = $git->parse_commit($pname, 'HEAD');
     $project->{head_id} = $head_commit->{id}
   }
-  
+
+  # Sort projects by age, most recent first
+  $projects = [ sort { $a->{age} <=> $b->{age} } @$projects ];
+
   # Render
   $self->render(
     home => $home,
